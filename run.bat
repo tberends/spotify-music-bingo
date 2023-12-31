@@ -1,0 +1,2 @@
+python -m musicbingo.runner generate-cards --playlist https://open.spotify.com/playlist/37i9dQZF1DX3fRquEp6m8D?si=ef1db6f0722546c9 --players 10
+python -m musicbingo.runner play-game --playlist https://open.spotify.com/playlist/37i9dQZF1DX3fRquEp6m8D?si=ef1db6f0722546c9 --clip-duration 30 --duration-between-clips 3

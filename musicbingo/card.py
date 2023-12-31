@@ -14,13 +14,13 @@ class MusicBingoCard:
     def get_filename(self):
         name = slugify(self.title)
         player = str(self.player).zfill(3)
-        return '{}_{}_{}.png'.format(self.game_id, name, player)
+        return "{}_{}_{}.png".format(self.game_id, name, player)
 
     def write(self):
         WIDTH = 1000
         HEIGHT = 1200
 
-        BINGO_TITLE_Y = 30
+        BINGO_TITLE_Y = 60
         PLAYLIST_TITLE_Y = 20
         PLAYER_NAME_Y = 40
 
@@ -28,39 +28,60 @@ class MusicBingoCard:
         CELL_HEIGHT = CELL_WIDTH
         CELL_PADDING = 5
         BOARD_X = 100
-        BOARD_Y = 130
+        BOARD_Y = 100
 
-        img = Image.new('RGB', (WIDTH, HEIGHT), color=(255, 255, 255))
+        img = Image.new("RGB", (WIDTH, HEIGHT), color=(255, 255, 255))
         d = ImageDraw.Draw(img)
 
         # BINGO Title
-        fnt = ImageFont.truetype('Arial Unicode.ttf', 100)
+        fnt = ImageFont.truetype(
+            ".\\layout\\ARLRDBD.TTF",
+            60,
+        )
         bingo_title_size = d.textsize("B   I   N   G   O", font=fnt)
         bingo_title_x = (WIDTH / 2) - (bingo_title_size[0] / 2)
-        d.text((bingo_title_x, BINGO_TITLE_Y), "B   I   N   G   O", font=fnt, fill=(0, 0, 0))
+        d.text(
+            (bingo_title_x, BINGO_TITLE_Y),
+            "B   I   N   G   O",
+            font=fnt,
+            fill=(0, 0, 0),
+        )
 
         # Playlist Title
-        fnt = ImageFont.truetype('Arial Unicode.ttf', 40)
+        fnt = ImageFont.truetype(
+            ".\\layout\\ARLRDBD.TTF",
+            40,
+        )
         playlist_title_size = d.textsize(self.title, font=fnt)
         playlist_title_x = (WIDTH / 2) - (playlist_title_size[0] / 2)
         playlist_title_y = BINGO_TITLE_Y + PLAYLIST_TITLE_Y + bingo_title_size[1]
-        d.text((playlist_title_x, playlist_title_y), self.title, font=fnt, fill=(0, 0, 0))
+        d.text(
+            (playlist_title_x, playlist_title_y), self.title, font=fnt, fill=(0, 0, 0)
+        )
 
         # Player Name
         player_name = self.player.title()
-        fnt = ImageFont.truetype('Arial Unicode.ttf', 30)
+        fnt = ImageFont.truetype(
+            ".\\layout\\ARLRDBD.TTF",
+            30,
+        )
         player_name_size = d.textsize(player_name, font=fnt)
         player_name_x = (WIDTH / 2) - (player_name_size[0] / 2)
-        player_name_y = BINGO_TITLE_Y + PLAYLIST_TITLE_Y + PLAYER_NAME_Y + bingo_title_size[1]
+        player_name_y = (
+            BINGO_TITLE_Y + PLAYLIST_TITLE_Y + PLAYER_NAME_Y + bingo_title_size[1]
+        )
         d.text((player_name_x, player_name_y), player_name, font=fnt, fill=(0, 0, 0))
 
         # Add each of the bingo squares
         cells = self.tracks
         cells.insert(12, None)
         y1 = BOARD_Y
-        fnt = ImageFont.truetype('Arial Unicode.ttf', 20)
+        fnt = ImageFont.truetype(
+            ".\\layout\\ARLRDBD.TTF",
+            20,
+        )
         for idx, track in enumerate(cells):
-            x1 = BOARD_X + ((idx % 5)*CELL_WIDTH)
+            x1 = BOARD_X + ((idx % 5) * CELL_WIDTH)
             if idx % 5 == 0:
                 y1 = y1 + CELL_HEIGHT
 
@@ -70,66 +91,72 @@ class MusicBingoCard:
             d.rectangle([(x1, y1), (x2, y2)], fill=(255, 255, 255), outline=(0, 0, 0))
 
             if track:
-                title = '{} - {}'.format(track['name'], track['artists'])
-                wrapper = TextWrapper(title, fnt, CELL_WIDTH-(CELL_PADDING*2))
+                title = "{} - {}".format(track["name"], track["artists"])
+                wrapper = TextWrapper(title, fnt, CELL_WIDTH - (CELL_PADDING * 2))
                 wrapped_text = wrapper.wrapped_text()
-                d.text((x1+CELL_PADDING, y1+CELL_PADDING), wrapped_text, font=fnt, fill=(0, 0, 0))
+
+                # Get the width of the text
+                text_width, _ = d.textsize(wrapped_text, font=fnt)
+
+                # Calculate the x position to center the text
+                text_x = (
+                    x1
+                    + CELL_PADDING
+                    + ((CELL_WIDTH - (CELL_PADDING * 2) - text_width) / 2)
+                )
+
+                d.text(
+                    (text_x, y1 + CELL_PADDING),
+                    wrapped_text,
+                    font=fnt,
+                    fill=(0, 0, 0),
+                )
             else:
-                free_space_fnt = ImageFont.truetype('Arial Unicode.ttf', 30)
+                # put logo in the middle
+                logo = Image.open(".\layout\\logo.jpg")
+                logo = logo.resize((CELL_WIDTH, CELL_HEIGHT))
+                img.paste(logo, (x1, y1))
 
-                free_size = d.textsize('Free', font=free_space_fnt)
-                space_size = d.textsize('Space', font=free_space_fnt)
-                free_space_height = free_size[1] + space_size[1]
-
-                free_x = x1 + (CELL_WIDTH / 2) - (free_size[0] / 2)
-                free_y = y1 + (CELL_HEIGHT / 2) - free_size[1]
-                d.text((free_x, free_y), 'Free', font=free_space_fnt, fill=(0, 0, 0))
-
-                space_x = x1 + (CELL_WIDTH / 2) - (space_size[0] / 2)
-                space_y = y1 + (CELL_HEIGHT / 2)
-                d.text((space_x, space_y), 'Space', font=free_space_fnt, fill=(0, 0, 0))
+                # img.save(self.get_filename())
 
         # Add a watermark footer link
-        fnt = ImageFont.truetype('Arial Unicode.ttf', 16)
-        footer_y = BOARD_Y + (CELL_HEIGHT*6) + 5
-        d.text((560, footer_y), 'https://github.com/switchtrue/spotify-music-bingo', font=fnt, fill=(100, 100, 100))
+        fnt = fnt = ImageFont.truetype(
+            ".\layout\\ARLRDBD.TTF",
+            16,
+        )
+        footer_y = BOARD_Y + (CELL_HEIGHT * 6) + 5
+        d.text(
+            (500, footer_y),
+            "https://github.com/tberends/spotify-music-bingo",
+            font=fnt,
+            fill=(100, 100, 100),
+        )
 
         img.save(self.get_filename())
 
 
 # From: https://stackoverflow.com/a/49719319/990416
 class TextWrapper(object):
-    """ Helper class to wrap text in lines, based on given text, font
-        and max allowed line width.
+    """Helper class to wrap text in lines, based on given text, font
+    and max allowed line width.
     """
 
     def __init__(self, text, font, max_width):
         self.text = text
         self.text_lines = [
-            ' '.join([w.strip() for w in l.split(' ') if w])
-            for l in text.split('\n')
+            " ".join([w.strip() for w in l.split(" ") if w])
+            for l in text.split("\n")
             if l
         ]
         self.font = font
         self.max_width = max_width
 
-        self.draw = ImageDraw.Draw(
-            Image.new(
-                mode='RGB',
-                size=(100, 100)
-            )
-        )
+        self.draw = ImageDraw.Draw(Image.new(mode="RGB", size=(100, 100)))
 
-        self.space_width = self.draw.textsize(
-            text=' ',
-            font=self.font
-        )[0]
+        self.space_width = self.draw.textsize(text=" ", font=self.font)[0]
 
     def get_text_width(self, text):
-        return self.draw.textsize(
-            text=text,
-            font=self.font
-        )[0]
+        return self.draw.textsize(text=text, font=self.font)[0]
 
     def wrapped_text(self):
         wrapped_lines = []
@@ -137,11 +164,12 @@ class TextWrapper(object):
         buf_width = 0
 
         for line in self.text_lines:
-            for word in line.split(' '):
+            for word in line.split(" "):
                 word_width = self.get_text_width(word)
 
-                expected_width = word_width if not buf else \
-                    buf_width + self.space_width + word_width
+                expected_width = (
+                    word_width if not buf else buf_width + self.space_width + word_width
+                )
 
                 if expected_width <= self.max_width:
                     # word fits in line
@@ -149,13 +177,13 @@ class TextWrapper(object):
                     buf.append(word)
                 else:
                     # word doesn't fit in line
-                    wrapped_lines.append(' '.join(buf))
+                    wrapped_lines.append(" ".join(buf))
                     buf = [word]
                     buf_width = word_width
 
             if buf:
-                wrapped_lines.append(' '.join(buf))
+                wrapped_lines.append(" ".join(buf))
                 buf = []
                 buf_width = 0
 
-        return '\n'.join(wrapped_lines)
+        return "\n".join(wrapped_lines)
