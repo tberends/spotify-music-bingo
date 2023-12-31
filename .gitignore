@@ -133,3 +133,4 @@ dmypy.json
 /*.png
 .cache-*
 .vscode
+run.bat

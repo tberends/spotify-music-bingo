@@ -95,18 +95,23 @@ class MusicBingoCard:
                 wrapper = TextWrapper(title, fnt, CELL_WIDTH - (CELL_PADDING * 2))
                 wrapped_text = wrapper.wrapped_text()
 
-                # Get the width of the text
-                text_width, _ = d.textsize(wrapped_text, font=fnt)
+                # Get the width and height of the text
+                text_width, text_height = d.textsize(wrapped_text, font=fnt)
 
-                # Calculate the x position to center the text
+                # Calculate the x and y position to center the text
                 text_x = (
                     x1
                     + CELL_PADDING
                     + ((CELL_WIDTH - (CELL_PADDING * 2) - text_width) / 2)
                 )
+                text_y = (
+                    y1
+                    + CELL_PADDING
+                    + ((CELL_WIDTH - (CELL_PADDING * 2) - text_height) / 2)
+                )
 
                 d.text(
-                    (text_x, y1 + CELL_PADDING),
+                    (text_x, text_y),
                     wrapped_text,
                     font=fnt,
                     fill=(0, 0, 0),
