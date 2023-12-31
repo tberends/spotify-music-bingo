@@ -10,7 +10,8 @@ Check out the [sample](sample-cards) Bingo cards.
 *Note: A [virtualenv](https://virtualenv.pypa.io/) is recommended.*
 
 1. Clone this repository
-2. pip install -r requirements.txt
+2. Install a python in environment in python 3.8
+3. pip install -r requirements.txt
 
 # Prerequisites
 
