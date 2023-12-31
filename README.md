@@ -25,7 +25,7 @@ when using all of the commands below.
 
 ## Generate Bingo Cards
 
-`scripts/bingo.sh generate-cards --playlist <playlist_url> --players John,Paul,Ringo,George`
+`scripts/bingo.sh generate-cards --playlist <playlist_url> --players <list_of_names, e.g. John,Paul,Ringo,George>`
 
 See below for the playlist URL required.
 
