@@ -2,82 +2,54 @@
 
 ![banner](layout/logo.jpg)
 
+Spotify Music Bingo is a fun and interactive game that allows you to generate bingo cards from a Spotify playlist and play short clips of each song for a unique music bingo experience. Check out our [sample](sample-cards) Bingo cards for a sneak peek.
 
-Generate bing cards from a Spotify playlist and then play short clips of each song to play music
-bingo.
+## Installation
 
-Check out the [sample](sample-cards) Bingo cards.
+We recommend using a [virtualenv](https://virtualenv.pypa.io/) for the installation process.
 
-# Installation
+1. Clone this repository.
+2. Set up a Python environment using Python 3.8.
+3. Install the necessary dependencies using pip: `pip install -r requirements.txt`.
 
-*Note: A [virtualenv](https://virtualenv.pypa.io/) is recommended.*
+## Prerequisites
 
-1. Clone this repository
-2. Install a python in environment in python 3.8
-3. pip install -r requirements.txt
+1. A Spotify Premium account is required.
+2. Create a Spotify application [here](https://developer.spotify.com/dashboard/applications) and obtain its `Client ID` and `Client Secret`.
+3. The environment variables `SPOTIPY_CLIENT_ID` and `SPOTIPY_CLIENT_SECRET` must be set for all the commands below. You can create a `localsecrets.py` file in the main directory for this purpose.
 
-# Prerequisites
+## Usage
 
-1. You'll need a Spotify Premium account.
-2. You need to create a Spotify application [here](https://developer.spotify.com/dashboard/applications)
-and obtain its `Client ID` and `Client Secret`.
-3. The environment variables `SPOTIPY_CLIENT_ID` and `SPOTIPY_CLIENT_SECRET` will need to be set
-when using all of the commands below, create for it a localsecrets.py file in the main-dir.
+### Generate Bingo Cards
 
-# Usage
-
-## Generate Bingo Cards
+Use the following command to generate bingo cards:
 
 `scripts/bingo.sh generate-cards --playlist <playlist_url> --players <list_of_names, e.g. John,Paul,Ringo,George>`
 
-See below for the playlist URL required.
+The playlist URL should be in the format of a share link from Spotify.
 
-## Start a New Game
+### Start a New Game
+
+Start a new game with the following command:
 
 `scripts/bingo.sh play-game --playlist <playlist_url> [--clip-duration <seconds>] [--duration-between-clips <seconds>] [--verbose]`
 
-`--clip-duration` is optional and controls how much of the beginning of the track is played. The
-default is 30 seconds.
+The `--clip-duration` option controls the length of the track clip played (default is 30 seconds). The `--duration-between-clips` option allows a silent gap to be played between each clip to better identify the start/end of a song (default is 2 seconds). The `--verbose` option will log each track after it has played.
 
-`--duration-between-clips` is optional and allows a silent gap to be played between each clip to
-better identify the start/end of a song. The default is 2 seconds.
+### Resuming a Game
 
-`--verbose` will log each track after it has played.
-
-## Resuming a Game
-
-The order of the tracks played is randomised when a game is started. However, you can pass in a
-`game id` that get used to seed the randomisation of the tracks. When a new game is started the
-game id is displayed and can be passed back in with a starting track number to carry on where you
-left off.
+The order of the tracks played is randomized when a game is started. However, you can pass in a `game id` that is used to seed the randomization of the tracks. When a new game is started, the game id is displayed and can be passed back in with a starting track number to resume where you left off.
 
 `scripts/bingo.sh play-game --playlist <playlist_url> --game-id <game_id> --starting-track <track_number> [--clip-duration <seconds>] [--duration-between-clips <seconds>]`
 
-When you exit a game the `--game-id` and `--starting-track` will be output so you can resume later.
+When you exit a game, the `--game-id` and `--starting-track` will be output so you can resume later.
 
-## Ending a Game
+### Ending a Game
 
-Nothing fancy exit at any time with `ctrl+c` or wait until all the tracks have played and the game
-will stop itself.
+You can exit the game at any time with `ctrl+c` or wait until all the tracks have played and the game will stop itself.
 
-# Notes
+## Notes
 
-## Playlist URLs
+### Playlist URLs
 
-Playlist URLs should be in the format of a share link like the following:
-`https://open.spotify.com/playlist/37i9dQZF1DX2S9rTKTX6JP?si=dNmprcd1Qt6DePO606aOHA`
-
-You can obtain these by clicking "Share" > "Copy Playlist Link" on a Spotify playlist.
-
-## Playing via Zoom
-
-The concept for this orginated during the COVID-19 pandemic when social distancing was key. As such
-people were encouraged to stay at home and public spaces were closed meaning music bingo couldn't be
-played at the local pub.
-
-Instead I sought to find a way to play it via video conference and therefore it only seems right to
-include instructions for playing via [Zoom](https://zoom.us/).
-
-On the host computer, sign in to Zoom, start a meeting, Click "Share Screen" at the bottom and then
-select the "Advanced" tab and choose the "Music or Computer Sound Only" option. All other participants
-need to join the Zoom meeting as per any other Zoom meeting.
+Playlist URLs should be in the format of a share link from Spotify, like the following: `https://open.spotify.com/playlist/37i9dQZF1DX2S9rTKTX6JP?si=dNmprcd1Qt6DePO606aOHA`. You can obtain these by clicking "Share" > "Copy Playlist Link" on a Spotify playlist.
