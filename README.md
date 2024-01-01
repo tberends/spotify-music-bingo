@@ -1,5 +1,8 @@
 # Spotify Music Bingo
 
+![banner](layout/logo.jpg)
+
+
 Generate bing cards from a Spotify playlist and then play short clips of each song to play music
 bingo.
 
