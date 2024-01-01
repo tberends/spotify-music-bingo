@@ -1,5 +1,5 @@
 90s:
-scripts/bingo.sh play-game --playlist="https://open.spotify.com/playlist/3RUIJXK0srICFrjojmBHoW\?si\=Exfson1fRouBX4k6S5ordg" --game-id=302079
+python -m musicbingo.runner play-game --playlist="https://open.spotify.com/playlist/3RUIJXK0srICFrjojmBHoW\?si\=Exfson1fRouBX4k6S5ordg" --game-id=302079
 
 00s:
-scripts/bingo.sh play-game --playlist="https://open.spotify.com/playlist/7q24EBz8HtUNq8lnTBJDOf\?si\=DnT5wiJ_RGeNGq6o0BcZGA" --game-id=441955
+python -m musicbingo.runner play-game --playlist="https://open.spotify.com/playlist/7q24EBz8HtUNq8lnTBJDOf\?si\=DnT5wiJ_RGeNGq6o0BcZGA" --game-id=441955

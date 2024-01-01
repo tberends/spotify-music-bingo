@@ -24,7 +24,7 @@ We recommend using a [virtualenv](https://virtualenv.pypa.io/) for the installat
 
 Use the following command to generate bingo cards:
 
-`scripts/bingo.sh generate-cards --playlist <playlist_url> --players <list_of_names, e.g. John,Paul,Ringo,George>`
+`python -m musicbingo.runner generate-cards --playlist <playlist_url> --players <list_of_names, e.g. John,Paul,Ringo,George>`
 
 The playlist URL should be in the format of a share link from Spotify.
 
@@ -32,7 +32,7 @@ The playlist URL should be in the format of a share link from Spotify.
 
 Start a new game with the following command:
 
-`scripts/bingo.sh play-game --playlist <playlist_url> [--clip-duration <seconds>] [--duration-between-clips <seconds>] [--verbose]`
+`python -m musicbingo.runner play-game --playlist <playlist_url> [--clip-duration <seconds>] [--duration-between-clips <seconds>] [--verbose]`
 
 The `--clip-duration` option controls the length of the track clip played (default is 30 seconds). The `--duration-between-clips` option allows a silent gap to be played between each clip to better identify the start/end of a song (default is 2 seconds). The `--verbose` option will log each track after it has played.
 
@@ -40,7 +40,7 @@ The `--clip-duration` option controls the length of the track clip played (defau
 
 The order of the tracks played is randomized when a game is started. However, you can pass in a `game id` that is used to seed the randomization of the tracks. When a new game is started, the game id is displayed and can be passed back in with a starting track number to resume where you left off.
 
-`scripts/bingo.sh play-game --playlist <playlist_url> --game-id <game_id> --starting-track <track_number> [--clip-duration <seconds>] [--duration-between-clips <seconds>]`
+`python -m musicbingo.runner play-game --playlist <playlist_url> --game-id <game_id> --starting-track <track_number> [--clip-duration <seconds>] [--duration-between-clips <seconds>]`
 
 When you exit a game, the `--game-id` and `--starting-track` will be output so you can resume later.
 
