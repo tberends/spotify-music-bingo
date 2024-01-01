@@ -52,4 +52,4 @@ You can exit the game at any time with `ctrl+c` or wait until all the tracks hav
 
 ### Playlist URLs
 
-Playlist URLs should be in the format of a share link from Spotify, like the following: `https://open.spotify.com/playlist/37i9dQZF1DX2S9rTKTX6JP?si=dNmprcd1Qt6DePO606aOHA`. You can obtain these by clicking "Share" > "Copy Playlist Link" on a Spotify playlist.
+Playlist URLs should be in the format of a share link from Spotify, like the following: `https://open.spotify.com/playlist/6zbtsC1O5v3xCIZQRPuDNl?si=ab86ea0724524246`. You can obtain these by clicking "Share" > "Copy Playlist Link" on a Spotify playlist.
