@@ -16,7 +16,7 @@ We recommend using a [virtualenv](https://virtualenv.pypa.io/) for the installat
 
 1. A Spotify Premium account is required.
 2. Create a Spotify application [here](https://developer.spotify.com/dashboard/applications) and obtain its `Client ID` and `Client Secret`.
-3. The environment variables `SPOTIPY_CLIENT_ID` and `SPOTIPY_CLIENT_SECRET` must be set for all the commands below. You can create a `localsecrets.py` file in the main directory for this purpose.
+3. The environment variables `SPOTIPY_CLIENT_ID` and `SPOTIPY_CLIENT_SECRET` must be set for all the commands below. You can create a `localsecrets.py` file in the main directory for defining the envs..
 
 ## Usage
 
